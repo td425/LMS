@@ -9,31 +9,45 @@ use Illuminate\Support\Facades\Schema;
 class Setting extends Model
 {
     protected $fillable = [
-        'key',
-        'value',
+        'name',
+        'content',
     ];
 
-    public static function getValue(string $key, ?string $default = null): ?string
+    public static function getValue(string $name, ?string $default = null): ?string
     {
         if (! static::tableReady()) {
             return $default;
         }
 
-        return Cache::rememberForever('setting.'.$key, function () use ($key, $default) {
-            $setting = static::query()->where('key', $key)->first();
+        try {
+            return Cache::store('file')->remember('setting.'.$name, 3600, function () use ($name, $default) {
+                $setting = static::query()->where('name', $name)->first();
 
-            return $setting?->value ?? $default;
-        });
+                return $setting?->content ?? $default;
+            });
+        } catch (\Throwable) {
+            try {
+                $setting = static::query()->where('name', $name)->first();
+
+                return $setting?->content ?? $default;
+            } catch (\Throwable) {
+                return $default;
+            }
+        }
     }
 
-    public static function setValue(string $key, ?string $value): void
+    public static function setValue(string $name, ?string $value): void
     {
         static::query()->updateOrCreate(
-            ['key' => $key],
-            ['value' => $value],
+            ['name' => $name],
+            ['content' => $value],
         );
 
-        Cache::forget('setting.'.$key);
+        try {
+            Cache::store('file')->forget('setting.'.$name);
+        } catch (\Throwable) {
+            // Ignore cache failures on shared hosting.
+        }
     }
 
     public static function logoUrl(): string

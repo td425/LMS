@@ -102,6 +102,25 @@ php artisan db:seed --force
 
 Admins can change the logo and site name at `/admin/settings` after login.
 
+If saving site settings returns a **500 error**, run:
+
+```bash
+php artisan migrate --force
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+chmod -R 775 storage bootstrap/cache
+php artisan storage:link
+```
+
+Also set these in `.env` for Hostinger shared hosting:
+
+```env
+SESSION_DRIVER=file
+CACHE_STORE=file
+QUEUE_CONNECTION=sync
+```
+
 Demo accounts (password: `password`):
 
 | Role | Email |
