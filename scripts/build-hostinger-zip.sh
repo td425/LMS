@@ -22,6 +22,10 @@ fi
 echo "==> Installing PHP dependencies (production)..."
 composer install --no-dev --optimize-autoloader --no-interaction
 
+echo "==> Clearing stale bootstrap cache..."
+rm -f bootstrap/cache/config.php bootstrap/cache/packages.php bootstrap/cache/services.php bootstrap/cache/routes-v7.php 2>/dev/null || true
+php artisan package:discover --ansi 2>/dev/null || true
+
 echo "==> Creating zip (includes vendor/ + public/css/)..."
 rm -rf "$STAGING" "$OUT"
 mkdir -p "$STAGING"
@@ -36,6 +40,7 @@ tar -cf - \
   --exclude='.phpunit.cache' \
   --exclude='public/build' \
   --exclude='public/hot' \
+  --exclude='bootstrap/cache/*.php' \
   -C "$ROOT" . | tar -xf - -C "$STAGING"
 
 cd "$STAGING"

@@ -274,6 +274,19 @@ bash scripts/deploy-ubuntu.sh
 
 ## Troubleshooting
 
+### `BreezeServiceProvider` not found
+
+This happens when old cached bootstrap files reference **laravel/breeze** (a dev-only package). Fix:
+
+```bash
+php artisan optimize:clear
+rm -f bootstrap/cache/*.php
+php artisan package:discover
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
 ### "Page Expired" (419) on login or forms
 
 ```bash

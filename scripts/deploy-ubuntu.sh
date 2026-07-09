@@ -47,6 +47,11 @@ fi
 echo "==> Installing PHP dependencies..."
 composer install --no-dev --optimize-autoloader --no-interaction
 
+echo "==> Clearing stale bootstrap cache..."
+php artisan optimize:clear 2>/dev/null || true
+rm -f bootstrap/cache/config.php bootstrap/cache/packages.php bootstrap/cache/services.php bootstrap/cache/routes-v7.php 2>/dev/null || true
+php artisan package:discover --ansi
+
 echo "==> Running migrations..."
 if [[ "$SEED" == true ]]; then
   php artisan migrate --seed --force

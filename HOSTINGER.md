@@ -157,6 +157,17 @@ chmod -R 775 storage bootstrap/cache
 php artisan storage:link
 ```
 
+If you see **`BreezeServiceProvider` not found**, clear stale bootstrap cache:
+
+```bash
+php artisan optimize:clear
+rm -f bootstrap/cache/*.php
+php artisan package:discover
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
 ## Demo accounts
 
 Password for all: `password`
