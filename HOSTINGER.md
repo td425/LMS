@@ -31,8 +31,6 @@ Build the release **on your computer** (or in CI), then upload the zip to Hostin
 
 ```bash
 composer install --no-dev --optimize-autoloader
-npm install
-npm run build
 ```
 
 Or run the helper script:
@@ -44,7 +42,7 @@ bash scripts/build-hostinger-zip.sh
 This creates `learnhost-hostinger.zip` with everything Hostinger needs, including:
 
 - `vendor/` (PHP dependencies — **no Composer on server**)
-- `public/build/` (compiled CSS/JS)
+- `public/css/app.css` (pre-built styles — **no Node/npm**)
 - `public/images/logo-new.png` (default Mwasalat logo)
 
 ### Step B — Upload to Hostinger
@@ -84,7 +82,7 @@ Upload the full project (or extracted zip) to your domain folder.
 The upload **must include**:
 
 - `vendor/`
-- `public/build/`
+- `public/css/app.css`
 - `public/images/logo-new.png`
 
 ## 3. Point the document root to `public`
@@ -122,7 +120,10 @@ DB_PASSWORD=your_database_password
 SESSION_DRIVER=file
 CACHE_STORE=file
 QUEUE_CONNECTION=sync
+SESSION_SECURE_COOKIE=false
 ```
+
+Set `APP_URL` to your exact site URL. If login shows **Page Expired**, run `php artisan config:clear` and verify `APP_URL` and session settings above.
 
 ## 5. Storage permissions & link
 
@@ -184,7 +185,6 @@ cp .env.example .env
 php artisan key:generate
 # For SQLite: set DB_CONNECTION=sqlite and DB_DATABASE to database/database.sqlite
 php artisan migrate --seed
-npm install && npm run build
 php artisan serve
 ```
 

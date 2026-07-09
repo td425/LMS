@@ -37,7 +37,7 @@ sudo usermod -aG www-data deploy
 
 ---
 
-## 2. Install Nginx, MySQL, PHP 8.3, Composer, and Node
+## 2. Install Nginx, MySQL, PHP 8.3, and Composer
 
 ```bash
 sudo apt install -y nginx mysql-server git unzip curl
@@ -52,9 +52,6 @@ sudo apt install -y \
 # Composer
 curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
-
-# Node.js (for building frontend assets on the server)
-sudo apt install -y nodejs npm
 ```
 
 Verify PHP:
@@ -103,12 +100,10 @@ git clone https://github.com/td425/LMS.git .
 git checkout cursor/lms-system-dcce   # or your release branch
 ```
 
-Install dependencies and build assets:
+Install dependencies (Laravel only — no Node/npm required):
 
 ```bash
 composer install --no-dev --optimize-autoloader --no-interaction
-npm ci
-npm run build
 ```
 
 Configure environment:
@@ -136,7 +131,10 @@ DB_PASSWORD=your_strong_password
 SESSION_DRIVER=file
 CACHE_STORE=file
 QUEUE_CONNECTION=sync
+SESSION_SECURE_COOKIE=true
 ```
+
+`APP_URL` must exactly match your site URL (including `https://`). A wrong URL often causes **Page Expired** (419) errors on login and forms.
 
 Run migrations and seed demo data (first install only):
 
@@ -272,16 +270,33 @@ git pull
 bash scripts/deploy-ubuntu.sh
 ```
 
-If frontend assets changed:
-
-```bash
-npm ci && npm run build
-bash scripts/deploy-ubuntu.sh
-```
-
 ---
 
 ## Troubleshooting
+
+### "Page Expired" (419) on login or forms
+
+```bash
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+```
+
+Then check `.env`:
+
+- `APP_URL` matches your real site URL exactly (e.g. `https://your-domain.com`)
+- `SESSION_DRIVER=file`
+- On HTTP (no SSL): `SESSION_SECURE_COOKIE=false`
+- On HTTPS: `SESSION_SECURE_COOKIE=true`
+
+Ensure session storage is writable:
+
+```bash
+chmod -R 775 storage bootstrap/cache
+mkdir -p storage/framework/sessions
+chown -R www-data:www-data storage bootstrap/cache
+php artisan config:cache
+```
 
 ### 500 error on admin settings
 

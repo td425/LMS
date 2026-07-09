@@ -14,19 +14,15 @@ if ! command -v composer >/dev/null 2>&1; then
   exit 1
 fi
 
-if ! command -v npm >/dev/null 2>&1; then
-  echo "npm is required on your PC to build frontend assets."
+if [[ ! -f public/css/app.css ]]; then
+  echo "Error: public/css/app.css is missing."
   exit 1
 fi
 
 echo "==> Installing PHP dependencies (production)..."
 composer install --no-dev --optimize-autoloader --no-interaction
 
-echo "==> Building frontend assets..."
-npm install --ignore-scripts
-npm run build
-
-echo "==> Creating zip (includes vendor/ + public/build/)..."
+echo "==> Creating zip (includes vendor/ + public/css/)..."
 rm -rf "$STAGING" "$OUT"
 mkdir -p "$STAGING"
 
@@ -38,6 +34,8 @@ tar -cf - \
   --exclude='learnhost-hostinger.zip' \
   --exclude='tests' \
   --exclude='.phpunit.cache' \
+  --exclude='public/build' \
+  --exclude='public/hot' \
   -C "$ROOT" . | tar -xf - -C "$STAGING"
 
 cd "$STAGING"

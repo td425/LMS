@@ -10,7 +10,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=dm-sans:400,500,600,700|fraunces:600,700&display=swap" rel="stylesheet" />
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @include('layouts.partials.head-assets')
     </head>
     <body class="font-sans text-slate-800 antialiased bg-[radial-gradient(circle_at_top_left,_#fef2f2,_#fff8f6_45%,_#f8fafc)]">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">

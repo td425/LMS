@@ -1,6 +1,6 @@
 # LearnHost LMS
 
-A **Laravel 11** + MySQL Learning Management System.
+A **Laravel 11** + MySQL Learning Management System. **PHP/Composer only** — no Node.js or npm required on the server.
 
 Laravel provides built-in security (CSRF, auth, validation), caching, migrations, and a structure that scales better than plain PHP as your user base grows.
 
@@ -36,7 +36,6 @@ Then:
 ```bash
 touch database/database.sqlite
 php artisan migrate --seed
-npm install && npm run build
 php artisan serve
 ```
 
@@ -55,7 +54,6 @@ Production on a VPS with **Nginx**, **PHP 8.3-FPM**, **MySQL**, and **Composer**
 
    ```bash
    composer install --no-dev --optimize-autoloader
-   npm ci && npm run build
    bash scripts/deploy-ubuntu.sh --seed   # first install
    ```
 
@@ -73,12 +71,10 @@ For shared hosting where you cannot run Composer on the server:
 
    ```bash
    composer install --no-dev --optimize-autoloader
-   npm install && npm run build
+   bash scripts/build-hostinger-zip.sh
    ```
 
-   Or use: `bash scripts/build-hostinger-zip.sh`
-
-2. **Upload** the zip (includes `vendor/` and `public/build/`) to Hostinger
+2. **Upload** the zip (includes `vendor/` and `public/css/`) to Hostinger
 
 3. **On server**, run only:
 

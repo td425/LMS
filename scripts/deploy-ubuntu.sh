@@ -59,6 +59,8 @@ php artisan storage:link 2>/dev/null || true
 
 echo "==> Setting permissions..."
 chmod -R 775 storage bootstrap/cache 2>/dev/null || true
+mkdir -p storage/framework/sessions
+chmod -R 775 storage/framework/sessions 2>/dev/null || true
 
 echo "==> Caching config, routes, and views..."
 php artisan config:cache
