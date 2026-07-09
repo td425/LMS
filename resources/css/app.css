@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --brand: #0f5c4c;
+        --brand-soft: #e8f3ef;
+        --ink: #1f2937;
+        --sand: #f7f4ee;
+    }
+
+    body {
+        font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+        color: var(--ink);
+    }
+
+    .font-display {
+        font-family: 'Fraunces', Georgia, serif;
+    }
+}
+
+@layer components {
+    .lms-hero {
+        background:
+            radial-gradient(circle at 15% 20%, rgba(15, 92, 76, 0.18), transparent 40%),
+            radial-gradient(circle at 85% 10%, rgba(180, 120, 60, 0.12), transparent 35%),
+            linear-gradient(160deg, #f7f4ee 0%, #e8f3ef 55%, #eef2f7 100%);
+    }
+
+    .prose-lesson h2 {
+        @apply font-display text-2xl font-semibold text-teal-950 mt-6 mb-3;
+    }
+
+    .prose-lesson p {
+        @apply text-slate-700 leading-relaxed mb-4;
+    }
+}
