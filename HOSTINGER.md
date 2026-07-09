@@ -1,13 +1,27 @@
 # Deploy LearnHost LMS on Hostinger
 
-This Laravel + MySQL LMS is designed for Hostinger shared / cloud hosting (PHP + MySQL).
+This **Laravel 11** + MySQL LMS is designed for Hostinger shared / cloud hosting (PHP 8.2+).
+
+> If you previously uploaded a Laravel 13 build, you will see:
+> `Your Composer dependencies require a PHP version ">= 8.3.0"`.
+> Re-upload this PHP 8.2-compatible release (or pull the latest branch), then run `composer install` again.
 
 ## Requirements
 
-- PHP 8.2+ (Hostinger usually provides 8.2/8.3)
+- **PHP 8.2+** (this app targets PHP 8.2 for Hostinger shared hosting)
 - MySQL database
 - PHP extensions: `mbstring`, `openssl`, `pdo_mysql`, `tokenizer`, `xml`, `ctype`, `json`, `bcmath`, `fileinfo`
 - `mod_rewrite` enabled (default on Hostinger)
+
+### Confirm PHP version in hPanel
+
+In **hPanel → Advanced → PHP Configuration** (or **Select PHP Version**), choose **PHP 8.2** or **8.3**.
+
+CLI and website PHP should match. Check with:
+
+```bash
+php -v
+```
 
 ## 1. Create MySQL database
 

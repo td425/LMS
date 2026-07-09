@@ -1,6 +1,6 @@
 # LearnHost LMS
 
-A Laravel + MySQL Learning Management System ready for **Hostinger** web hosting.
+A Laravel 11 + MySQL Learning Management System ready for **Hostinger** web hosting (PHP 8.2+).
 
 ## Features
 
