@@ -2,12 +2,12 @@
     <x-slot name="header">
         <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-wide text-teal-800">{{ $course->level }}</p>
+                <p class="text-xs font-semibold uppercase tracking-wide text-red-800">{{ $course->level }}</p>
                 <h1 class="font-display text-3xl font-bold text-slate-900">{{ $course->title }}</h1>
                 <p class="mt-1 text-sm text-slate-600">Instructor: {{ $course->instructor->name }}</p>
             </div>
             @if ($enrolled)
-                <div class="text-sm font-medium text-teal-900">Progress: {{ $progress }}%</div>
+                <div class="text-sm font-medium text-red-900">Progress: {{ $progress }}%</div>
             @endif
         </div>
     </x-slot>
@@ -17,8 +17,8 @@
             <p class="text-slate-700 leading-relaxed">{{ $course->description }}</p>
 
             @if ($enrolled)
-                <div class="mt-6 h-2 overflow-hidden rounded-full bg-teal-100">
-                    <div class="h-full rounded-full bg-teal-700 transition-all" style="width: {{ $progress }}%"></div>
+                <div class="mt-6 h-2 overflow-hidden rounded-full bg-red-100">
+                    <div class="h-full rounded-full bg-red-700 transition-all" style="width: {{ $progress }}%"></div>
                 </div>
             @endif
 
@@ -31,7 +31,7 @@
                             <p class="text-xs text-slate-500">{{ $lesson->duration_minutes }} min</p>
                         </div>
                         @if ($enrolled || (auth()->check() && (auth()->id() === $course->instructor_id || auth()->user()->isAdmin())))
-                            <a href="{{ route('lessons.show', [$course, $lesson]) }}" class="text-sm font-semibold text-teal-800 hover:text-teal-700">Open</a>
+                            <a href="{{ route('lessons.show', [$course, $lesson]) }}" class="text-sm font-semibold text-red-800 hover:text-red-700">Open</a>
                         @else
                             <span class="text-xs text-slate-400">Enroll to open</span>
                         @endif
@@ -42,14 +42,14 @@
             </ol>
         </section>
 
-        <aside class="rounded-xl border border-teal-900/10 bg-white/80 p-5 h-fit">
+        <aside class="rounded-xl border border-red-900/10 bg-white/80 p-5 h-fit">
             <h3 class="font-display text-lg font-semibold text-slate-900">Enrollment</h3>
             @auth
                 @if ($enrolled)
                     <p class="mt-2 text-sm text-slate-600">You are enrolled in this course.</p>
                     @if ($course->lessons->isNotEmpty())
                         <a href="{{ route('lessons.show', [$course, $course->lessons->first()]) }}"
-                           class="mt-4 inline-flex w-full justify-center rounded-md bg-teal-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700">
+                           class="mt-4 inline-flex w-full justify-center rounded-md bg-red-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700">
                             Continue learning
                         </a>
                     @endif
@@ -57,14 +57,14 @@
                     <p class="mt-2 text-sm text-slate-600">Join free and track your lesson progress.</p>
                     <form method="POST" action="{{ route('courses.enroll', $course) }}" class="mt-4">
                         @csrf
-                        <button class="inline-flex w-full justify-center rounded-md bg-teal-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700">
+                        <button class="inline-flex w-full justify-center rounded-md bg-red-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700">
                             Enroll now
                         </button>
                     </form>
                 @endif
             @else
                 <p class="mt-2 text-sm text-slate-600">Create an account to enroll and start learning.</p>
-                <a href="{{ route('register') }}" class="mt-4 inline-flex w-full justify-center rounded-md bg-teal-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700">Register</a>
+                <a href="{{ route('register') }}" class="mt-4 inline-flex w-full justify-center rounded-md bg-red-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700">Register</a>
                 <a href="{{ route('login') }}" class="mt-2 inline-flex w-full justify-center rounded-md border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Log in</a>
             @endauth
         </aside>

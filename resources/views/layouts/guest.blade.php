@@ -12,15 +12,15 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-slate-800 antialiased bg-[radial-gradient(circle_at_top_left,_#e8f3ef,_#f7f4ee_45%,_#eef2f7)]">
+    <body class="font-sans text-slate-800 antialiased bg-[radial-gradient(circle_at_top_left,_#fef2f2,_#fff8f6_45%,_#f8fafc)]">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
             <div>
-                <a href="{{ route('home') }}" class="font-display text-3xl font-bold tracking-tight text-teal-900">
-                    {{ config('app.name', 'LearnHost') }}
+                <a href="{{ route('home') }}" class="inline-flex items-center justify-center">
+                    <x-site-logo class="h-16" />
                 </a>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white/90 border border-teal-900/10 shadow-sm overflow-hidden sm:rounded-xl">
+            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white/90 border border-red-900/10 shadow-sm overflow-hidden sm:rounded-xl">
                 {{ $slot }}
             </div>
         </div>

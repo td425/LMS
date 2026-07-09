@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div>
-            <a href="{{ route('courses.show', $course) }}" class="text-sm font-medium text-teal-800 hover:text-teal-700">← {{ $course->title }}</a>
+            <a href="{{ route('courses.show', $course) }}" class="text-sm font-medium text-red-800 hover:text-red-700">← {{ $course->title }}</a>
             <h1 class="mt-2 font-display text-3xl font-bold text-slate-900">{{ $lesson->title }}</h1>
             <p class="mt-1 text-sm text-slate-500">{{ $lesson->duration_minutes }} minutes</p>
         </div>
@@ -21,11 +21,11 @@
 
             <div class="mt-8 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-6">
                 @if ($isCompleted)
-                    <span class="inline-flex items-center rounded-md bg-teal-50 px-3 py-2 text-sm font-semibold text-teal-800">Completed</span>
+                    <span class="inline-flex items-center rounded-md bg-red-50 px-3 py-2 text-sm font-semibold text-red-800">Completed</span>
                 @else
                     <form method="POST" action="{{ route('lessons.complete', [$course, $lesson]) }}">
                         @csrf
-                        <button class="inline-flex items-center rounded-md bg-teal-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700">
+                        <button class="inline-flex items-center rounded-md bg-red-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700">
                             Mark as complete
                         </button>
                     </form>
@@ -39,10 +39,10 @@
                 @foreach ($course->lessons as $item)
                     <li>
                         <a href="{{ route('lessons.show', [$course, $item]) }}"
-                           class="block rounded-md px-3 py-2 text-sm {{ $item->id === $lesson->id ? 'bg-teal-50 font-semibold text-teal-900' : 'text-slate-700 hover:bg-slate-50' }}">
+                           class="block rounded-md px-3 py-2 text-sm {{ $item->id === $lesson->id ? 'bg-red-50 font-semibold text-red-900' : 'text-slate-700 hover:bg-slate-50' }}">
                             {{ $item->title }}
                             @if (in_array($item->id, $completedIds, true))
-                                <span class="ms-1 text-teal-700">✓</span>
+                                <span class="ms-1 text-red-700">✓</span>
                             @endif
                         </a>
                     </li>

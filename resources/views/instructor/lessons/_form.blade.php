@@ -8,7 +8,7 @@
 
 <div>
     <x-input-label for="content" value="Content (HTML allowed)" />
-    <textarea id="content" name="content" rows="8" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-teal-700 focus:ring-teal-700">{{ old('content', $lesson->content ?? '') }}</textarea>
+    <textarea id="content" name="content" rows="8" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-red-700 focus:ring-red-700">{{ old('content', $lesson->content ?? '') }}</textarea>
     <x-input-error :messages="$errors->get('content')" class="mt-2" />
 </div>
 
@@ -32,7 +32,7 @@
 </div>
 
 <label class="inline-flex items-center gap-2 text-sm text-slate-700">
-    <input type="checkbox" name="is_published" value="1" class="rounded border-slate-300 text-teal-800 focus:ring-teal-700"
+    <input type="checkbox" name="is_published" value="1" class="rounded border-slate-300 text-red-800 focus:ring-red-700"
            @checked(old('is_published', $lesson->is_published ?? true))>
     Published
 </label>

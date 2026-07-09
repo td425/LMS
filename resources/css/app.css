@@ -4,10 +4,11 @@
 
 @layer base {
     :root {
-        --brand: #0f5c4c;
-        --brand-soft: #e8f3ef;
+        --brand: #b91c1c;
+        --brand-dark: #7f1d1d;
+        --brand-soft: #fef2f2;
         --ink: #1f2937;
-        --sand: #f7f4ee;
+        --sand: #fff8f6;
     }
 
     body {
@@ -23,13 +24,13 @@
 @layer components {
     .lms-hero {
         background:
-            radial-gradient(circle at 15% 20%, rgba(15, 92, 76, 0.18), transparent 40%),
-            radial-gradient(circle at 85% 10%, rgba(180, 120, 60, 0.12), transparent 35%),
-            linear-gradient(160deg, #f7f4ee 0%, #e8f3ef 55%, #eef2f7 100%);
+            radial-gradient(circle at 15% 20%, rgba(185, 28, 28, 0.18), transparent 40%),
+            radial-gradient(circle at 85% 10%, rgba(220, 80, 60, 0.12), transparent 35%),
+            linear-gradient(160deg, #fff8f6 0%, #fef2f2 55%, #f8fafc 100%);
     }
 
     .prose-lesson h2 {
-        @apply font-display text-2xl font-semibold text-teal-950 mt-6 mb-3;
+        @apply font-display text-2xl font-semibold text-red-950 mt-6 mb-3;
     }
 
     .prose-lesson p {

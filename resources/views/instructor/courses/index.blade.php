@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between gap-3">
             <h1 class="font-display text-3xl font-bold text-slate-900">Instructor courses</h1>
-            <a href="{{ route('instructor.courses.create') }}" class="inline-flex items-center rounded-md bg-teal-800 px-3 py-2 text-sm font-semibold text-white hover:bg-teal-700">New course</a>
+            <a href="{{ route('instructor.courses.create') }}" class="inline-flex items-center rounded-md bg-red-800 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">New course</a>
         </div>
     </x-slot>
 
@@ -28,7 +28,7 @@
                             <td class="px-4 py-3">{{ $course->enrollments_count }}</td>
                             <td class="px-4 py-3">{{ $course->is_published ? 'Published' : 'Draft' }}</td>
                             <td class="px-4 py-3 text-right">
-                                <a href="{{ route('instructor.courses.edit', $course) }}" class="font-semibold text-teal-800 hover:text-teal-700">Manage</a>
+                                <a href="{{ route('instructor.courses.edit', $course) }}" class="font-semibold text-red-800 hover:text-red-700">Manage</a>
                             </td>
                         </tr>
                     @empty

@@ -1,10 +1,13 @@
-<nav x-data="{ open: false }" class="bg-white/80 backdrop-blur border-b border-teal-900/10">
+<nav x-data="{ open: false }" class="bg-white/80 backdrop-blur border-b border-red-900/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}" class="font-display text-xl font-bold tracking-tight text-teal-900">
-                        {{ config('app.name', 'LearnHost') }}
+                    <a href="{{ route('home') }}" class="inline-flex items-center gap-2">
+                        <x-site-logo class="h-10" />
+                        <span class="hidden sm:inline font-display text-lg font-bold tracking-tight text-red-900">
+                            {{ config('app.name', 'LearnHost') }}
+                        </span>
                     </a>
                 </div>
 
@@ -27,12 +30,12 @@
 
             <div class="hidden sm:flex sm:items-center sm:ms-6 gap-3">
                 @guest
-                    <a href="{{ route('login') }}" class="text-sm font-medium text-slate-600 hover:text-teal-800">Log in</a>
-                    <a href="{{ route('register') }}" class="inline-flex items-center rounded-md bg-teal-800 px-3 py-2 text-sm font-semibold text-white hover:bg-teal-700">Register</a>
+                    <a href="{{ route('login') }}" class="text-sm font-medium text-slate-600 hover:text-red-800">Log in</a>
+                    <a href="{{ route('register') }}" class="inline-flex items-center rounded-md bg-red-800 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">Register</a>
                 @else
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
-                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-600 bg-transparent hover:text-teal-900 focus:outline-none transition">
+                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-600 bg-transparent hover:text-red-900 focus:outline-none transition">
                                 <div>{{ Auth::user()->name }}</div>
                                 <div class="ms-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -59,7 +62,7 @@
             </div>
 
             <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 focus:outline-none">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-slate-600 hover:bg-red-50 focus:outline-none">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -104,7 +107,7 @@
             @else
                 <div class="mt-3 space-y-1 px-4 pb-4">
                     <a href="{{ route('login') }}" class="block text-sm font-medium text-slate-700">Log in</a>
-                    <a href="{{ route('register') }}" class="block text-sm font-medium text-teal-800">Register</a>
+                    <a href="{{ route('register') }}" class="block text-sm font-medium text-red-800">Register</a>
                 </div>
             @endauth
         </div>

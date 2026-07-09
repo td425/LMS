@@ -12,12 +12,12 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-slate-800 bg-[radial-gradient(circle_at_top_left,_#e8f3ef,_#f7f4ee_45%,_#eef2f7)]">
+    <body class="font-sans antialiased text-slate-800 bg-[radial-gradient(circle_at_top_left,_#fef2f2,_#fff8f6_45%,_#f8fafc)]">
         <div class="min-h-screen">
             @include('layouts.navigation')
 
             @isset($header)
-                <header class="border-b border-teal-900/10 bg-white/70 backdrop-blur">
+                <header class="border-b border-red-900/10 bg-white/70 backdrop-blur">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -26,7 +26,7 @@
 
             @if (session('status'))
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-                    <div class="rounded-lg border border-teal-700/20 bg-teal-50 px-4 py-3 text-sm text-teal-900">
+                    <div class="rounded-lg border border-red-700/20 bg-red-50 px-4 py-3 text-sm text-red-900">
                         {{ session('status') }}
                     </div>
                 </div>

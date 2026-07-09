@@ -7,25 +7,25 @@
         <section>
             <div class="flex items-center justify-between gap-3">
                 <h2 class="font-display text-2xl font-semibold text-slate-900">My learning</h2>
-                <a href="{{ route('courses.index') }}" class="text-sm font-semibold text-teal-800 hover:text-teal-700">Browse courses</a>
+                <a href="{{ route('courses.index') }}" class="text-sm font-semibold text-red-800 hover:text-red-700">Browse courses</a>
             </div>
 
             <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 @forelse ($enrollments as $enrollment)
                     @php($course = $enrollment->course)
                     @php($progress = $course->progressFor(auth()->user()))
-                    <a href="{{ route('courses.show', $course) }}" class="rounded-xl border border-slate-200 bg-white/80 p-5 hover:border-teal-700/30 hover:shadow-sm">
+                    <a href="{{ route('courses.show', $course) }}" class="rounded-xl border border-slate-200 bg-white/80 p-5 hover:border-red-700/30 hover:shadow-sm">
                         <h3 class="font-display text-lg font-semibold text-slate-900">{{ $course->title }}</h3>
                         <p class="mt-1 text-sm text-slate-500">{{ ucfirst($course->level) }} · {{ $course->lessons->count() }} lessons</p>
-                        <div class="mt-4 h-2 overflow-hidden rounded-full bg-teal-100">
-                            <div class="h-full rounded-full bg-teal-700" style="width: {{ $progress }}%"></div>
+                        <div class="mt-4 h-2 overflow-hidden rounded-full bg-red-100">
+                            <div class="h-full rounded-full bg-red-700" style="width: {{ $progress }}%"></div>
                         </div>
-                        <p class="mt-2 text-sm font-medium text-teal-900">{{ $progress }}% complete</p>
+                        <p class="mt-2 text-sm font-medium text-red-900">{{ $progress }}% complete</p>
                     </a>
                 @empty
                     <div class="sm:col-span-2 lg:col-span-3 rounded-xl border border-dashed border-slate-300 bg-white/60 p-8 text-slate-600">
                         You are not enrolled in any courses yet.
-                        <a href="{{ route('courses.index') }}" class="ms-1 font-semibold text-teal-800">Find a course</a>
+                        <a href="{{ route('courses.index') }}" class="ms-1 font-semibold text-red-800">Find a course</a>
                     </div>
                 @endforelse
             </div>
@@ -35,7 +35,7 @@
             <section>
                 <div class="flex items-center justify-between gap-3">
                     <h2 class="font-display text-2xl font-semibold text-slate-900">Teaching</h2>
-                    <a href="{{ route('instructor.courses.create') }}" class="inline-flex items-center rounded-md bg-teal-800 px-3 py-2 text-sm font-semibold text-white hover:bg-teal-700">New course</a>
+                    <a href="{{ route('instructor.courses.create') }}" class="inline-flex items-center rounded-md bg-red-800 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">New course</a>
                 </div>
 
                 <div class="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white/80">
@@ -57,7 +57,7 @@
                                     <td class="px-4 py-3">{{ $course->enrollments_count }}</td>
                                     <td class="px-4 py-3">{{ $course->is_published ? 'Published' : 'Draft' }}</td>
                                     <td class="px-4 py-3 text-right">
-                                        <a href="{{ route('instructor.courses.edit', $course) }}" class="font-semibold text-teal-800 hover:text-teal-700">Edit</a>
+                                        <a href="{{ route('instructor.courses.edit', $course) }}" class="font-semibold text-red-800 hover:text-red-700">Edit</a>
                                     </td>
                                 </tr>
                             @empty
