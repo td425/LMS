@@ -1,9 +1,9 @@
 @props([
-    'height' => 'h-10',
+    'alt' => null,
 ])
 
 <img
-    src="https://mwasalat.om/ar/images/logo-new.png"
-    alt="{{ config('app.name', 'LearnHost') }}"
-    {{ $attributes->merge(['class' => $height.' w-auto object-contain']) }}
+    src="{{ \App\Models\Setting::logoUrl() }}"
+    alt="{{ $alt ?? \App\Models\Setting::siteName() }}"
+    {{ $attributes->class(['w-auto object-contain']) }}
 />

@@ -31,6 +31,16 @@
             </div>
         </section>
 
+        @if (auth()->user()->isAdmin())
+            <section>
+                <div class="flex items-center justify-between gap-3">
+                    <h2 class="font-display text-2xl font-semibold text-slate-900">Admin</h2>
+                    <a href="{{ route('admin.settings.edit') }}" class="inline-flex items-center rounded-md bg-red-800 px-3 py-2 text-sm font-semibold text-white hover:bg-red-700">Site settings</a>
+                </div>
+                <p class="mt-3 text-sm text-slate-600">Configure the site logo, site name, and branding used across the LMS.</p>
+            </section>
+        @endif
+
         @if (auth()->user()->isInstructor())
             <section>
                 <div class="flex items-center justify-between gap-3">

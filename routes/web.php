@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EnrollmentController;
@@ -48,6 +49,15 @@ Route::middleware(['auth', 'verified', 'instructor'])
         Route::get('/courses/{course:id}/lessons/{lesson:id}/edit', [InstructorLessonController::class, 'edit'])->name('lessons.edit');
         Route::put('/courses/{course:id}/lessons/{lesson:id}', [InstructorLessonController::class, 'update'])->name('lessons.update');
         Route::delete('/courses/{course:id}/lessons/{lesson:id}', [InstructorLessonController::class, 'destroy'])->name('lessons.destroy');
+    });
+
+Route::middleware(['auth', 'verified', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');
+        Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
+        Route::post('/settings/reset-logo', [SettingController::class, 'resetLogo'])->name('settings.reset-logo');
     });
 
 require __DIR__.'/auth.php';

@@ -88,12 +88,19 @@ chmod -R 775 storage bootstrap/cache
 php artisan storage:link
 ```
 
+Make sure these logo files exist after upload:
+
+- `public/images/logo-new.png` (default site logo)
+- `public/storage` symlink (created by `storage:link`) for admin-uploaded logos
+
 ## 6. Migrate and seed
 
 ```bash
 php artisan migrate --force
 php artisan db:seed --force
 ```
+
+Admins can change the logo and site name at `/admin/settings` after login.
 
 Demo accounts (password: `password`):
 

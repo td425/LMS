@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Enrollment;
 use App\Models\Lesson;
 use App\Models\LessonProgress;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -15,6 +16,9 @@ class LmsSeeder extends Seeder
 {
     public function run(): void
     {
+        Setting::setValue('site_name', 'LearnHost');
+        Setting::setValue('site_logo', 'images/logo-new.png');
+
         $admin = User::query()->updateOrCreate(
             ['email' => 'admin@lms.test'],
             [

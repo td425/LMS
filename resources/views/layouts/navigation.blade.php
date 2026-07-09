@@ -3,11 +3,8 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}" class="inline-flex items-center gap-2">
-                        <x-site-logo class="h-10" />
-                        <span class="hidden sm:inline font-display text-lg font-bold tracking-tight text-red-900">
-                            {{ config('app.name', 'LearnHost') }}
-                        </span>
+                    <a href="{{ route('home') }}" class="inline-flex items-center gap-3" aria-label="{{ $siteName }}">
+                        <x-site-logo class="h-12 max-h-12" />
                     </a>
                 </div>
 
@@ -22,6 +19,11 @@
                         @if (Auth::user()->isInstructor())
                             <x-nav-link :href="route('instructor.courses.index')" :active="request()->routeIs('instructor.*')">
                                 {{ __('Instructor') }}
+                            </x-nav-link>
+                        @endif
+                        @if (Auth::user()->isAdmin())
+                            <x-nav-link :href="route('admin.settings.edit')" :active="request()->routeIs('admin.*')">
+                                {{ __('Settings') }}
                             </x-nav-link>
                         @endif
                     @endauth
@@ -84,6 +86,11 @@
                 @if (Auth::user()->isInstructor())
                     <x-responsive-nav-link :href="route('instructor.courses.index')" :active="request()->routeIs('instructor.*')">
                         {{ __('Instructor') }}
+                    </x-responsive-nav-link>
+                @endif
+                @if (Auth::user()->isAdmin())
+                    <x-responsive-nav-link :href="route('admin.settings.edit')" :active="request()->routeIs('admin.*')">
+                        {{ __('Settings') }}
                     </x-responsive-nav-link>
                 @endif
             @endauth

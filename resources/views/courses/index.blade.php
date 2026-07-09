@@ -1,11 +1,14 @@
 <x-app-layout>
     <div class="lms-hero border-b border-red-900/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
-            <x-site-logo class="h-20 sm:h-24" />
+            <x-site-logo class="h-24 sm:h-28" />
             <h1 class="mt-6 max-w-2xl font-display text-2xl sm:text-3xl font-semibold tracking-tight text-red-950">
-                Learn practical skills with courses built for real hosting.
+                {{ $siteName }}
             </h1>
-            <p class="mt-3 max-w-xl text-slate-600">
+            <p class="mt-3 max-w-2xl text-lg font-medium text-slate-700">
+                Learn practical skills with courses built for real hosting.
+            </p>
+            <p class="mt-2 max-w-xl text-slate-600">
                 Browse published courses, enroll free, and track lesson progress from any device.
             </p>
             <div class="mt-8 flex flex-wrap gap-3">
