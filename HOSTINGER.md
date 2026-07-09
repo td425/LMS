@@ -2,26 +2,72 @@
 
 This **Laravel 11** + MySQL LMS is designed for Hostinger shared / cloud hosting (PHP 8.2+).
 
+Laravel is used for **security, scalability, and maintainability** (auth, CSRF, validation, caching, migrations, tests). You do **not** need to run Composer on Hostinger if you upload a pre-built package (see below).
+
 > If you previously uploaded a Laravel 13 build, you will see:
 > `Your Composer dependencies require a PHP version ">= 8.3.0"`.
-> Re-upload this PHP 8.2-compatible release (or pull the latest branch), then run `composer install` again.
+> Re-upload this PHP 8.2-compatible release instead.
 
 ## Requirements
 
-- **PHP 8.2+** (this app targets PHP 8.2 for Hostinger shared hosting)
+- **PHP 8.2+** (Hostinger shared hosting)
 - MySQL database
 - PHP extensions: `mbstring`, `openssl`, `pdo_mysql`, `tokenizer`, `xml`, `ctype`, `json`, `bcmath`, `fileinfo`
 - `mod_rewrite` enabled (default on Hostinger)
 
 ### Confirm PHP version in hPanel
 
-In **hPanel → Advanced → PHP Configuration** (or **Select PHP Version**), choose **PHP 8.2** or **8.3**.
-
-CLI and website PHP should match. Check with:
+In **hPanel → Advanced → PHP Configuration**, choose **PHP 8.2** or **8.3**.
 
 ```bash
 php -v
 ```
+
+## Recommended: deploy without Composer on Hostinger
+
+Build the release **on your computer** (or in CI), then upload the zip to Hostinger.
+
+### Step A — Build locally
+
+```bash
+composer install --no-dev --optimize-autoloader
+npm install
+npm run build
+```
+
+Or run the helper script:
+
+```bash
+bash scripts/build-hostinger-zip.sh
+```
+
+This creates `learnhost-hostinger.zip` with everything Hostinger needs, including:
+
+- `vendor/` (PHP dependencies — **no Composer on server**)
+- `public/build/` (compiled CSS/JS)
+- `public/images/logo-new.png` (default Mwasalat logo)
+
+### Step B — Upload to Hostinger
+
+1. Upload `learnhost-hostinger.zip` to your domain folder (e.g. `public_html`)
+2. Extract the zip
+3. Set document root to `public/` (see step 3 below)
+
+### Step C — Configure on server (SSH / Hostinger terminal)
+
+```bash
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --force
+php artisan db:seed --force
+php artisan storage:link
+chmod -R 775 storage bootstrap/cache
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+**You only run `php artisan` commands on Hostinger — not `composer install`.**
 
 ## 1. Create MySQL database
 
@@ -33,18 +79,13 @@ In **hPanel → Databases → MySQL Databases**:
 
 ## 2. Upload the project
 
-Upload the full project to your domain folder (for example `public_html`).
+Upload the full project (or extracted zip) to your domain folder.
 
-Recommended options:
+The upload **must include**:
 
-- Git deploy / clone into the hosting account, or
-- Upload a zip of the project (including `vendor/` and `public/build/` if you cannot run Composer/Node on the server)
-
-If Composer is available via SSH:
-
-```bash
-composer install --no-dev --optimize-autoloader
-```
+- `vendor/`
+- `public/build/`
+- `public/images/logo-new.png`
 
 ## 3. Point the document root to `public`
 
@@ -53,8 +94,6 @@ In **hPanel → Domains → your domain → Document root**, set it to:
 ```text
 /public_html/public
 ```
-
-(or `.../your-folder/public`)
 
 If you cannot change the document root, keep the root `.htaccess` that forwards requests into `public/`.
 
@@ -79,6 +118,10 @@ DB_PORT=3306
 DB_DATABASE=your_database_name
 DB_USERNAME=your_database_user
 DB_PASSWORD=your_database_password
+
+SESSION_DRIVER=file
+CACHE_STORE=file
+QUEUE_CONNECTION=sync
 ```
 
 ## 5. Storage permissions & link
@@ -88,10 +131,10 @@ chmod -R 775 storage bootstrap/cache
 php artisan storage:link
 ```
 
-Make sure these logo files exist after upload:
+Make sure these exist after upload:
 
 - `public/images/logo-new.png` (default site logo)
-- `public/storage` symlink (created by `storage:link`) for admin-uploaded logos
+- `public/storage` symlink (for admin-uploaded logos)
 
 ## 6. Migrate and seed
 
@@ -113,15 +156,9 @@ chmod -R 775 storage bootstrap/cache
 php artisan storage:link
 ```
 
-Also set these in `.env` for Hostinger shared hosting:
+## Demo accounts
 
-```env
-SESSION_DRIVER=file
-CACHE_STORE=file
-QUEUE_CONNECTION=sync
-```
-
-Demo accounts (password: `password`):
+Password for all: `password`
 
 | Role | Email |
 |------|-------|
@@ -139,22 +176,13 @@ php artisan route:cache
 php artisan view:cache
 ```
 
-Frontend assets are already built into `public/build`. If you change CSS/JS locally:
-
-```bash
-npm install
-npm run build
-```
-
-Then upload the updated `public/build` folder.
-
 ## 8. Local development (optional)
 
 ```bash
 composer install
 cp .env.example .env
 php artisan key:generate
-# For local SQLite quick start, set DB_CONNECTION=sqlite and touch database/database.sqlite
+# For SQLite: set DB_CONNECTION=sqlite and DB_DATABASE to database/database.sqlite
 php artisan migrate --seed
 npm install && npm run build
 php artisan serve
@@ -166,8 +194,8 @@ Open `http://127.0.0.1:8000`.
 
 - Student registration / login (Laravel Breeze)
 - Course catalog with search and level filter
-- Enrollment
-- Lesson viewer + mark complete
-- Progress tracking on dashboard
+- Enrollment, lesson viewer, progress tracking
 - Instructor course & lesson management
+- Admin site settings (logo + site name)
 - Roles: `student`, `instructor`, `admin`
+- Red theme with Mwasalat logo support
