@@ -48,7 +48,7 @@
                     <li class="flex items-center justify-between gap-3 px-4 py-3">
                         <div>
                             <p class="font-medium text-slate-900">{{ $lesson->sort_order }}. {{ $lesson->title }}</p>
-                            <p class="text-xs text-slate-500">{{ $lesson->is_published ? 'Published' : 'Draft' }} · {{ $lesson->duration_minutes }} min</p>
+                            <p class="text-xs text-slate-500">{{ $lesson->contentTypeLabel() }} · {{ $lesson->is_published ? 'Published' : 'Draft' }} · {{ $lesson->duration_minutes }} min</p>
                         </div>
                         <a href="{{ route('instructor.lessons.edit', [$course, $lesson]) }}" class="text-sm font-semibold text-red-800">Edit</a>
                     </li>

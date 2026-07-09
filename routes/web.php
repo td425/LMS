@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\Instructor\CourseController as InstructorCourseController;
 use App\Http\Controllers\Instructor\LessonController as InstructorLessonController;
+use App\Http\Controllers\Instructor\QuizController as InstructorQuizController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->scopeBindings()
         ->name('lessons.complete');
 
+    Route::post('/courses/{course}/lessons/{lesson}/quiz', [LessonController::class, 'submitQuiz'])
+        ->scopeBindings()
+        ->name('lessons.quiz.submit');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -49,6 +54,9 @@ Route::middleware(['auth', 'verified', 'instructor'])
         Route::get('/courses/{course:id}/lessons/{lesson:id}/edit', [InstructorLessonController::class, 'edit'])->name('lessons.edit');
         Route::put('/courses/{course:id}/lessons/{lesson:id}', [InstructorLessonController::class, 'update'])->name('lessons.update');
         Route::delete('/courses/{course:id}/lessons/{lesson:id}', [InstructorLessonController::class, 'destroy'])->name('lessons.destroy');
+
+        Route::get('/courses/{course:id}/lessons/{lesson:id}/quiz', [InstructorQuizController::class, 'edit'])->name('quizzes.edit');
+        Route::put('/courses/{course:id}/lessons/{lesson:id}/quiz', [InstructorQuizController::class, 'update'])->name('quizzes.update');
     });
 
 Route::middleware(['auth', 'verified', 'admin'])

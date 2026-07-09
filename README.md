@@ -9,6 +9,8 @@ Laravel provides built-in security (CSRF, auth, validation), caching, migrations
 - Course catalog with search and level filters
 - Student registration, login, enrollment, and lesson progress
 - Instructor tools to create/edit courses and lessons
+- Lesson types: text, video upload/URL, image, PDF, quiz, and assessment
+- Quiz builder with multiple choice, true/false, and short-answer questions
 - Admin site settings (logo + site name) at `/admin/settings`
 - Roles: student, instructor, admin
 - Red theme with Mwasalat logo (`public/images/logo-new.png`)

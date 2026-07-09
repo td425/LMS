@@ -5,7 +5,7 @@
     </x-slot>
 
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <form method="POST" action="{{ route('instructor.lessons.store', $course) }}" class="space-y-5 rounded-xl border border-slate-200 bg-white/85 p-6">
+        <form method="POST" action="{{ route('instructor.lessons.store', $course) }}" enctype="multipart/form-data" class="space-y-5 rounded-xl border border-slate-200 bg-white/85 p-6">
             @csrf
             @include('instructor.lessons._form')
             <div class="flex gap-3">
