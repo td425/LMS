@@ -1,6 +1,6 @@
 # LearnHost LMS
 
-A **Laravel 11** + MySQL Learning Management System for **Hostinger** web hosting (PHP 8.2+).
+A **Laravel 11** + MySQL Learning Management System.
 
 Laravel provides built-in security (CSRF, auth, validation), caching, migrations, and a structure that scales better than plain PHP as your user base grows.
 
@@ -44,7 +44,28 @@ Demo logins (password: `password`):
 - `instructor@lms.test`
 - `student@lms.test`
 
+## Ubuntu 24.04 deployment (recommended)
+
+Production on a VPS with **Nginx**, **PHP 8.3-FPM**, **MySQL**, and **Composer** on the server:
+
+1. Follow **[UBUNTU.md](UBUNTU.md)** for full server setup (Nginx, MySQL, Certbot HTTPS)
+2. Clone the repo, configure `.env`, then run:
+
+   ```bash
+   composer install --no-dev --optimize-autoloader
+   npm ci && npm run build
+   bash scripts/deploy-ubuntu.sh --seed   # first install
+   ```
+
+3. For updates after `git pull`:
+
+   ```bash
+   bash scripts/deploy-ubuntu.sh
+   ```
+
 ## Hostinger deployment (no Composer on server)
+
+For shared hosting where you cannot run Composer on the server:
 
 1. **Build locally** on your computer:
 
